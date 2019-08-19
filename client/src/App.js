@@ -1,10 +1,15 @@
 import React from 'react';
 import './App.css';
+import { RandomGenerator, Filters, LocationDetails, Reviews } from './Components';
 
 function App() {
   return (
     <div className="App">
-      <p>App is here</p>
+      <h1>MIDTOWN LUNCH PICKER</h1>
+      <RandomGenerator />
+      <Filters />
+      <LocationDetails />
+      <Reviews />
     </div>
   );
 }

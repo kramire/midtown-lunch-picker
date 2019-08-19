@@ -62,3 +62,5 @@ typings/
 
 # Misc
 client/src/assests/locations.json
+client/src/assests/locationDetails.json
+client/src/assests/reviews.json
