@@ -61,4 +61,4 @@ typings/
 .next
 
 # Misc
-./client/src/assests/locations.json
+client/src/assests/locations.json
