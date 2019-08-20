@@ -1,4 +1,5 @@
 import data from '../assests/locations.json';
+import * as types from './actionTypes';
 
 const initialState = {
   availableLocations: data.length,
@@ -28,7 +29,22 @@ const initialState = {
 };
 
 function LunchPickerReducers(state = initialState, action) {
-  switch (action.type) {
+  switch(action.type) {
+    case types.SET_LOCATION:
+      return {
+        ...state,
+        selectedLocation: action.data
+      }
+    case types.TOGGLE_FILTERS:
+      return {
+        ...state,
+        showFilters: !state.showFilters
+      }
+    case types.TOGGLE_PICKAGAIN:
+      return {
+        ...state,
+        showPickAgain: !state.showPickAgain
+      }
     default:
       return {
         ...state

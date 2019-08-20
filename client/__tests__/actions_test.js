@@ -6,7 +6,10 @@ describe('Action Creators', () => {
     it('setLocation --> should create an action to set the location with a passed index', () => {
       // Set Up
       const arrayIndex = 1;
-      const expectedAction = {type: types.SET_LOCATION, data: arrayIndex};
+      const expectedAction = {
+        type: types.SET_LOCATION,
+        data: arrayIndex,
+      };
 
       // Execute
       const result = actions.setLocation(arrayIndex);
@@ -17,7 +20,9 @@ describe('Action Creators', () => {
 
     it('toggleFilters --> should create an action to toggle filters', () => {
       // Set Up
-      const expectedAction = {type: types.TOGGLE_FILTERS};
+      const expectedAction = {
+        type: types.TOGGLE_FILTERS,
+      };
 
       // Execute
       const result = actions.toggleFilters();
@@ -28,7 +33,9 @@ describe('Action Creators', () => {
 
     it('togglePickagain --> should create an action to toggle pickAgain', () => {
       // Set Up
-      const expectedAction = {type: types.TOGGLE_PICKAGAIN};
+      const expectedAction = {
+        type: types.TOGGLE_PICKAGAIN,
+      };
 
       // Execute
       const result = actions.togglePickagain();
@@ -37,4 +44,4 @@ describe('Action Creators', () => {
       expect(result).toEqual(expectedAction);
     });
   });
-})
+});
