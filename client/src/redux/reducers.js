@@ -20,9 +20,7 @@ const initialState = {
   reviews: {
     isRequesting: false,
     lastUpdated: null,
-    rating: 0,
-    text: null,
-    posted: null,
+    data: [],
   },
 };
 
@@ -56,7 +54,47 @@ function LunchPickerReducers(state = initialState, action) {
         ...state,
         locationDetails: {
           ...state.locationDetails,
-          isRequesting: false
+          isRequesting: false,
+          lastUpdated: Date.now(),
+        },
+      }
+    case types.SET_LOCATION_DETAILS:
+      return {
+        ...state,
+        location: {
+          ...state.location,
+          address: action.data.location['display_address'],
+          phone: action.data['display_phone'],
+          website: action.data.url,
+          categories: action.data.categories,
+          rating: action.data.rating,
+          price: action.data.price,
+          photos: action.data.photos,
+        },
+      }
+    case types.REQUEST_REVIEWS:
+      return {
+        ...state,
+        reviews: {
+          ...state.reviews,
+          isRequesting: true,
+        },
+      }
+    case types.RECEIVED_REVIEWS:
+      return {
+        ...state,
+        reviews: {
+          ...state.reviews,
+          isRequesting: false,
+          lastUpdated: Date.now(),
+        },
+      }
+    case types.SET_REVIEWS:
+      return {
+        ...state,
+        reviews: {
+          ...state.reviews,
+          data: action.data,
         },
       }
     default:

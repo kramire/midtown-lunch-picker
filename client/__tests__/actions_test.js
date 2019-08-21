@@ -171,7 +171,7 @@ describe('Action Creators', () => {
 
     it('getReviews --> should create an action to request the review from the api', () => {
       // Set Up
-      const initialState = {reviews: {}};
+      const initialState = { reviews: {} };
       const locationId = '123';
       const responseData = reviewsData;
       const middlewares = [thunk];
@@ -187,7 +187,7 @@ describe('Action Creators', () => {
         },
         {
           type: types.RECEIVED_REVIEWS,
-        }
+        },
       ];
 
       nock(baseUrl, {
@@ -200,7 +200,7 @@ describe('Action Creators', () => {
       return store.dispatch(actions.getReviews(locationId))
         .then(() => {
           expect(store.getActions()).toEqual(expectedActions);
-        })
-    })
-  })
+        });
+    });
+  });
 });

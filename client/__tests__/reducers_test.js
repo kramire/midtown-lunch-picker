@@ -1,5 +1,7 @@
 import reducer from '../src/redux/reducers';
 import * as types from '../src/redux/actionTypes';
+import locationData from '../src/assests/locationDetails.json';
+import reviewData from '../src/assests/reviews.json';
 
 describe('Reducers', () => {
   describe('Application UI', () => {
@@ -59,7 +61,7 @@ describe('Reducers', () => {
       // Set Up
       const action = {
         type: types.REQUEST_LOCATION_DETAILS,
-      }
+      };
       const initialState = {
         locationDetails: {
           isRequesting: false,
@@ -67,7 +69,7 @@ describe('Reducers', () => {
       };
       const expectedState = {
         locationDetails: {
-          isRequesting: true
+          isRequesting: true,
         },
       };
 
@@ -83,15 +85,17 @@ describe('Reducers', () => {
       // Set Up
       const action = {
         type: types.RECEIVED_LOCATION_DETAILS,
-      }
+      };
       const initialState = {
         locationDetails: {
           isRequesting: true,
+          lastUpdated: Date.now(),
         },
       };
       const expectedState = {
         locationDetails: {
-          isRequesting: false
+          isRequesting: false,
+          lastUpdated: Date.now(),
         },
       };
 
@@ -102,31 +106,109 @@ describe('Reducers', () => {
       expect(newState).toEqual(expectedState);
       expect(initialState).not.toEqual(expectedState);
     });
-  })
-});
 
-// const locationDetails = {
-//   address: [
-//     '800 N Point St',
-//     'San Francisco, CA 94109'
-//   ],
-//   phone: '(415) 749-2060',
-//   website: 'https://www.yelp.com',
-//   categories: [
-//     {
-//       'alias': 'newamerican',
-//       'title': 'American (New)'
-//     },
-//     {
-//       'alias': 'french',
-//       'title': 'French'
-//     }
-//   ],
-//   rating: 4.5,
-//   price: "$$$$",
-//   photos: [
-//     'link1',
-//     'link2',
-//     'link3'
-//   ]
-// };
+    it('SET_LOCATION_DETAILS --> should set the properties for the location given the passed data', () => {
+      // Set Up
+      const action = {
+        type: types.SET_LOCATION_DETAILS,
+        data: locationData,
+      };
+      const initialState = {
+        location: {},
+      };
+      const expectedState = {
+        location: {
+          address: locationData.location.display_address,
+          phone: locationData.display_phone,
+          website: locationData.url,
+          categories: locationData.categories,
+          rating: locationData.rating,
+          price: locationData.price,
+          photos: locationData.photos,
+        },
+      };
+
+      // Execute
+      const newState = reducer(initialState, action);
+
+      // Assertion
+      expect(newState).toEqual(expectedState);
+      expect(initialState).not.toEqual(expectedState);
+    });
+  });
+
+  describe('Reviews', () => {
+    it('REQUEST_REVIEWS --> should set state\'s reviews.isRequesting to true', () => {
+      // Set Up
+      const action = {
+        type: types.REQUEST_REVIEWS,
+      };
+      const initialState = {
+        reviews: {
+          isRequesting: false,
+        },
+      };
+      const expectedState = {
+        reviews: {
+          isRequesting: true,
+        },
+      };
+
+      // Execute
+      const newState = reducer(initialState, action);
+
+      // Assertion
+      expect(newState).toEqual(expectedState);
+      expect(initialState).not.toEqual(expectedState);
+    });
+
+    it('RECEIVED_REVIEWS --> should set state\'s reviews.isRequesting to false, and updates lastUpdated', () => {
+      // Set Up
+      const action = {
+        type: types.RECEIVED_REVIEWS,
+      };
+      const initialState = {
+        reviews: {
+          isRequesting: true,
+          lastUpdated: Date.now(),
+        },
+      };
+      const expectedState = {
+        reviews: {
+          isRequesting: false,
+          lastUpdated: Date.now(),
+        },
+      };
+
+      // Execute
+      const newState = reducer(initialState, action);
+
+      // Assertion
+      expect(newState).toEqual(expectedState);
+      expect(initialState).not.toEqual(expectedState);
+    });
+
+    it('SET_REVIEWS --> should set the state\'s review data given the passed object', () => {
+      // Set Up
+      const action = {
+        type: types.SET_REVIEWS,
+        data: reviewData,
+      };
+      const initialState = {
+        reviews: {},
+      };
+      const expectedState = {
+        reviews: {
+          data: reviewData,
+        },
+      };
+
+      // Execute
+      const newState = reducer(initialState, action);
+
+      // Assertion
+      expect(newState).toEqual(expectedState);
+      expect(initialState).not.toEqual(expectedState);
+    });
+  });
+});
