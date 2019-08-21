@@ -1,11 +1,13 @@
-import * as actions from '../src/redux/actions';
-import * as types from '../src/redux/actionTypes';
-import configureMockStore from 'redux-mock-store';
+import fetch from 'isomorphic-fetch';
 import thunk from 'redux-thunk';
 import nock from 'nock';
-import fetch from 'isomorphic-fetch';
+import configureMockStore from 'redux-mock-store';
+import * as actions from '../src/redux/actions';
+import * as types from '../src/redux/actionTypes';
 import locationDetailsData from '../src/assests/locationDetails.json';
+import reviewsData from '../src/assests/reviews.json';
 
+const baseUrl = process.env.REACT_APP_YELP_API;
 const bearer = `Bearer ${process.env.REACT_APP_YELP_TOKEN}`;
 
 describe('Action Creators', () => {
@@ -55,7 +57,7 @@ describe('Action Creators', () => {
   });
 
   describe('Location Details', () => {
-    it('requestLocationDetails --> should create an action to toggle location isRequesting', () => {
+    it('requestLocationDetails --> should create an action to set location isRequesting to true', () => {
       // Set Up
       const expectedAction = {
         type: types.REQUEST_LOCATION_DETAILS,
@@ -68,7 +70,7 @@ describe('Action Creators', () => {
       expect(result).toEqual(expectedAction);
     });
 
-    it('receiveLocationDetails --> should create an action to toggle location isRequesting', () => {
+    it('receiveLocationDetails --> should create an action to set location isRequesting to false', () => {
       // Set Up
       const expectedAction = {
         type: types.RECEIVED_LOCATION_DETAILS,
@@ -93,38 +95,112 @@ describe('Action Creators', () => {
 
       // Assert
       expect(result).toEqual(expectedAction);
-    })
+    });
 
     it('getLocationDetails --> should create an action to request location details from api', () => {
       // Set Up
-      const initialState = { locationDetails: {} }
+      const initialState = { locationDetails: {} };
       const locationId = '123';
-      
       const middlewares = [thunk];
       const mockStore = configureMockStore(middlewares);
       const store = mockStore(initialState);
-      
       const responseData = locationDetailsData;
       const expectedActions = [
         { type: types.REQUEST_LOCATION_DETAILS },
-        { 
+        {
           type: types.SET_LOCATION_DETAILS,
-          data: responseData
+          data: responseData,
         },
         { type: types.RECEIVED_LOCATION_DETAILS },
       ];
 
-      nock(process.env.REACT_APP_YELP_API, {
-        reqheaders: { 'authorization': bearer }
+      nock(baseUrl, {
+        reqheaders: { authorization: bearer },
       })
-      .get(`/businesses/${locationId}`)
-      .reply(200, responseData);
+        .get(`/businesses/${locationId}`)
+        .reply(200, responseData);
 
       // Execute & Assertion
       return store.dispatch(actions.getLocationDetails(locationId))
         .then(() => {
           expect(store.getActions()).toEqual(expectedActions);
         });
+    });
+  });
+
+  describe('Reviews', () => {
+    it('requestReviews --> should create an action to set reviews isRequesting to true', () => {
+      // Set Up
+      const expectedAction = {
+        type: types.REQUEST_REVIEWS,
+      };
+
+      // Execute
+      const result = actions.requestReviews();
+
+      // Assertion
+      expect(result).toEqual(expectedAction);
+    });
+
+    it('receiveReviews --> should create an action to set reviews isRequesting to false', () => {
+      // Set Up
+      const expectedAction = {
+        type: types.RECEIVED_REVIEWS,
+      };
+
+      // Execute
+      const result = actions.receivedReviews();
+
+      // Assertion
+      expect(result).toEqual(expectedAction);
+    });
+
+    it('setReviews --> should create an action to set reviews with passed object', () => {
+      // Set Up
+      const expectedAction = {
+        type: types.SET_REVIEWS,
+        data: reviewsData,
+      };
+
+      // Execute
+      const result = actions.setReviews(reviewsData);
+
+      // Assertion
+      expect(result).toEqual(expectedAction);
+    });
+
+    it('getReviews --> should create an action to request the review from the api', () => {
+      // Set Up
+      const initialState = {reviews: {}};
+      const locationId = '123';
+      const responseData = reviewsData;
+      const middlewares = [thunk];
+      const mockStore = configureMockStore(middlewares);
+      const store = mockStore(initialState);
+      const expectedActions = [
+        {
+          type: types.REQUEST_REVIEWS,
+        },
+        {
+          type: types.SET_REVIEWS,
+          data: responseData,
+        },
+        {
+          type: types.RECEIVED_REVIEWS,
+        }
+      ];
+
+      nock(baseUrl, {
+        reqheaders: { authorization: bearer },
+      })
+        .get(`/businesses/${locationId}/reviews`)
+        .reply(200, responseData);
+
+      // Execute & Assertion
+      return store.dispatch(actions.getReviews(locationId))
+        .then(() => {
+          expect(store.getActions()).toEqual(expectedActions);
+        })
     })
   })
 });

@@ -42,4 +42,33 @@ export const getLocationDetails = locationId => {
     .then(data => dispatch(setLocationDetails(data)))
     .then(() => dispatch(receivedLocationDetails()))
   }
-}
+};
+
+export const requestReviews = () => ({
+  type: types.REQUEST_REVIEWS,
+});
+
+export const receivedReviews = () => ({
+  type: types.RECEIVED_REVIEWS,
+});
+
+export const setReviews = data => ({
+  type: types.SET_REVIEWS,
+  data
+});
+
+export const getReviews = locationId => {
+  const url = `${baseUrl}/businesses/${locationId}/reviews`;
+
+  return dispatch => {
+    dispatch(requestReviews());
+    return fetch(url, {
+      headers: {
+        authorization: bearer,
+      }
+    })
+    .then(res => res.json())
+    .then(data => dispatch(setReviews(data)))
+    .then(() => dispatch(receivedReviews()));
+  }
+};
