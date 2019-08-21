@@ -8,7 +8,7 @@ const initialState = {
   showPickAgain: false,
   locationDetails: {
     isRequesting: false,
-    lastUpdate: null,
+    lastUpdated: null,
     address: null,
     phone: null,
     website: null,
@@ -17,11 +17,9 @@ const initialState = {
     price: null,
     photos: [],
   },
-  filters: {
-    categories: [],
-    isOpen: true,
-  },
   reviews: {
+    isRequesting: false,
+    lastUpdated: null,
     rating: 0,
     text: null,
     posted: null,
@@ -44,6 +42,22 @@ function LunchPickerReducers(state = initialState, action) {
       return {
         ...state,
         showPickAgain: !state.showPickAgain
+      }
+    case types.REQUEST_LOCATION_DETAILS:
+      return {
+        ...state,
+        locationDetails: {
+          ...state.locationDetails,
+          isRequesting: true
+        },
+      }
+    case types.RECEIVED_LOCATION_DETAILS:
+      return {
+        ...state,
+        locationDetails: {
+          ...state.locationDetails,
+          isRequesting: false
+        },
       }
     default:
       return {

@@ -28,7 +28,7 @@ describe('Reducers', () => {
       };
       const initialState = { showFilters: false };
       const expectedState = { showFilters: true };
-      
+
       // Execute
       const newState = reducer(initialState, action);
 
@@ -53,4 +53,80 @@ describe('Reducers', () => {
       expect(initialState).not.toEqual(expectedState);
     });
   });
+
+  describe('Location Details', () => {
+    it('REQUEST_LOCATION_DETAILS --> should set the state\'s locationDetails.isRequesting to true', () => {
+      // Set Up
+      const action = {
+        type: types.REQUEST_LOCATION_DETAILS,
+      }
+      const initialState = {
+        locationDetails: {
+          isRequesting: false,
+        },
+      };
+      const expectedState = {
+        locationDetails: {
+          isRequesting: true
+        },
+      };
+
+      // Execute
+      const newState = reducer(initialState, action);
+
+      // Assertion
+      expect(newState).toEqual(expectedState);
+      expect(initialState).not.toEqual(expectedState);
+    });
+
+    it('RECEIVED_LOCATION_DETAILS --> should set the state\'s locationDetails.isRequesting to false', () => {
+      // Set Up
+      const action = {
+        type: types.RECEIVED_LOCATION_DETAILS,
+      }
+      const initialState = {
+        locationDetails: {
+          isRequesting: true,
+        },
+      };
+      const expectedState = {
+        locationDetails: {
+          isRequesting: false
+        },
+      };
+
+      // Execute
+      const newState = reducer(initialState, action);
+
+      // Assertion
+      expect(newState).toEqual(expectedState);
+      expect(initialState).not.toEqual(expectedState);
+    });
+  })
 });
+
+// const locationDetails = {
+//   address: [
+//     '800 N Point St',
+//     'San Francisco, CA 94109'
+//   ],
+//   phone: '(415) 749-2060',
+//   website: 'https://www.yelp.com',
+//   categories: [
+//     {
+//       'alias': 'newamerican',
+//       'title': 'American (New)'
+//     },
+//     {
+//       'alias': 'french',
+//       'title': 'French'
+//     }
+//   ],
+//   rating: 4.5,
+//   price: "$$$$",
+//   photos: [
+//     'link1',
+//     'link2',
+//     'link3'
+//   ]
+// };
