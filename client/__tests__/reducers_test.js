@@ -7,13 +7,21 @@ describe('Reducers', () => {
   describe('Application UI', () => {
     it('SET_LOCATION --> should update state\'s selectedLocation to be the passed location id', () => {
       // Set Up
-      const newLocationId = '456';
+      const newLocation = {
+        yelp_id: '456',
+        name: 'My Restaurant',
+      };
       const action = {
         type: types.SET_LOCATION,
-        data: newLocationId,
+        data: newLocation,
       };
-      const initialState = { selectedLocation: '123' };
-      const expectedState = { selectedLocation: newLocationId };
+      const initialState = { 
+        selectedLocation: {
+          yelp_id: '123',
+          name: 'My Old Restaurant',
+        }
+      };
+      const expectedState = { selectedLocation: newLocation };
 
       // Execute
       const newState = reducer(initialState, action);

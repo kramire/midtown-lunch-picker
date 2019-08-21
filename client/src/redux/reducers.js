@@ -3,7 +3,10 @@ import * as types from './actionTypes';
 
 const initialState = {
   availableLocations: data.length,
-  selectedLocation: null,
+  selectedLocation: {
+    yelp_id: null,
+    name: null,
+  },
   showFilters: false,
   showPickAgain: false,
   locationDetails: {
@@ -29,7 +32,11 @@ function LunchPickerReducers(state = initialState, action) {
     case types.SET_LOCATION:
       return {
         ...state,
-        selectedLocation: action.data
+        selectedLocation: {
+          ...state.selectedLocation,
+          yelp_id: action.data.yelp_id,
+          name: action.data.name,
+        }
       }
     case types.TOGGLE_FILTERS:
       return {

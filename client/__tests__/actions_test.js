@@ -7,8 +7,7 @@ import * as types from '../src/redux/actionTypes';
 import locationDetailsData from '../src/assests/locationDetails.json';
 import reviewsData from '../src/assests/reviews.json';
 
-const baseUrl = process.env.REACT_APP_YELP_API;
-const bearer = `Bearer ${process.env.REACT_APP_YELP_TOKEN}`;
+const baseUrl = process.env.REACT_APP_SERVER;
 
 describe('Action Creators', () => {
   afterEach(() => nock.cleanAll());
@@ -114,9 +113,7 @@ describe('Action Creators', () => {
         { type: types.RECEIVED_LOCATION_DETAILS },
       ];
 
-      nock(baseUrl, {
-        reqheaders: { authorization: bearer },
-      })
+      nock(baseUrl)
         .get(`/businesses/${locationId}`)
         .reply(200, responseData);
 
@@ -190,9 +187,7 @@ describe('Action Creators', () => {
         },
       ];
 
-      nock(baseUrl, {
-        reqheaders: { authorization: bearer },
-      })
+      nock(baseUrl)
         .get(`/businesses/${locationId}/reviews`)
         .reply(200, responseData);
 

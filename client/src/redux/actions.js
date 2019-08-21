@@ -1,6 +1,5 @@
 import * as types from './actionTypes.js';
-const baseUrl = process.env.REACT_APP_YELP_API;
-const bearer = `Bearer ${process.env.REACT_APP_YELP_TOKEN}`;
+const baseUrl = process.env.REACT_APP_SERVER;
 
 export const setLocation = data => ({
   type: types.SET_LOCATION,
@@ -33,11 +32,7 @@ export const getLocationDetails = locationId => {
 
   return dispatch => {
     dispatch(requestLocationDetails());
-    return fetch(url, {
-      headers: {
-        'authorization': bearer,
-      }
-    })
+    return fetch(url)
     .then(res => res.json())
     .then(data => dispatch(setLocationDetails(data)))
     .then(() => dispatch(receivedLocationDetails()))
@@ -62,11 +57,7 @@ export const getReviews = locationId => {
 
   return dispatch => {
     dispatch(requestReviews());
-    return fetch(url, {
-      headers: {
-        authorization: bearer,
-      }
-    })
+    return fetch(url)
     .then(res => res.json())
     .then(data => dispatch(setReviews(data)))
     .then(() => dispatch(receivedReviews()));
