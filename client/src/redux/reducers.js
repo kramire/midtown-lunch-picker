@@ -12,7 +12,7 @@ const initialState = {
   locationDetails: {
     isRequesting: false,
     lastUpdated: null,
-    address: null,
+    address: [],
     phone: null,
     website: null,
     categories: [],
@@ -68,11 +68,11 @@ function LunchPickerReducers(state = initialState, action) {
     case types.SET_LOCATION_DETAILS:
       return {
         ...state,
-        location: {
+        locationDetails: {
           ...state.location,
-          address: action.data.location['display_address'],
-          phone: action.data['display_phone'],
-          website: action.data.url,
+          address: action.data.address,
+          phone: action.data.phone,
+          website: action.data.website,
           categories: action.data.categories,
           rating: action.data.rating,
           price: action.data.price,

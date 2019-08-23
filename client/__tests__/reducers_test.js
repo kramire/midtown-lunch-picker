@@ -122,13 +122,13 @@ describe('Reducers', () => {
         data: locationData,
       };
       const initialState = {
-        location: {},
+        locationDetails: {},
       };
       const expectedState = {
-        location: {
-          address: locationData.location.display_address,
-          phone: locationData.display_phone,
-          website: locationData.url,
+        locationDetails: {
+          address: locationData.address,
+          phone: locationData.phone,
+          website: locationData.website,
           categories: locationData.categories,
           rating: locationData.rating,
           price: locationData.price,

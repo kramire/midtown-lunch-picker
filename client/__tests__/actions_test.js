@@ -114,7 +114,7 @@ describe('Action Creators', () => {
       ];
 
       nock(baseUrl)
-        .get(`/businesses/${locationId}`)
+        .get(`/locationDetails/${locationId}`)
         .reply(200, responseData);
 
       // Execute & Assertion
@@ -188,7 +188,7 @@ describe('Action Creators', () => {
       ];
 
       nock(baseUrl)
-        .get(`/businesses/${locationId}/reviews`)
+        .get(`/reviews/${locationId}`)
         .reply(200, responseData);
 
       // Execute & Assertion

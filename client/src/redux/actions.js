@@ -28,7 +28,7 @@ export const setLocationDetails = data => ({
 });
 
 export const getLocationDetails = locationId => {
-  const url = `${baseUrl}/businesses/${locationId}`
+  const url = `${baseUrl}/locationDetails/${locationId}`
 
   return dispatch => {
     dispatch(requestLocationDetails());
@@ -53,7 +53,7 @@ export const setReviews = data => ({
 });
 
 export const getReviews = locationId => {
-  const url = `${baseUrl}/businesses/${locationId}/reviews`;
+  const url = `${baseUrl}/reviews/${locationId}`;
 
   return dispatch => {
     dispatch(requestReviews());
