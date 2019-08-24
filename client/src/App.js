@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.scss';
-import { RandomGenerator, Filters, LocationDetails, Reviews } from './Components';
 import { useSelector } from 'react-redux';
+import { RandomGenerator, LocationDetails, Reviews } from './Components';
 
 function App() {
   const location = useSelector(state => state.locationDetails);
@@ -12,7 +12,7 @@ function App() {
       <h1>MIDTOWN LUNCH PICKER</h1>
       <RandomGenerator />
       {location.address.length > 0 && <LocationDetails location={location} />}
-      {reviews.length > 0 && <Reviews reviews={reviews}/>}
+      {reviews.length > 0 && <Reviews reviews={reviews} />}
     </div>
   );
 }

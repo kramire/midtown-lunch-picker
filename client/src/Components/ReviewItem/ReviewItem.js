@@ -4,14 +4,15 @@ import './ReviewItem.scss';
 
 function ReviewItem({ review }) {
   const { rating, text } = review;
-  const timeCreated = review.time_created;
-  const starArr = [...Array(Math.floor(rating)).keys()]; 
+  const postDate = new Date(review.time_created);
+  const formatedDate = `${postDate.getMonth()}/${postDate.getDay()}/${postDate.getFullYear()}`;
+  const starArr = [...Array(Math.floor(rating)).keys()];
 
   return (
-    <li className='review-item'>
-      <div>{starArr.map(el => <span class="fa fa-star"></span>)}</div>
+    <li className="review-item">
+      <div>{starArr.map(el => <span className="fa fa-star" key={el} />)}</div>
       <p>{text}</p>
-      <p>Posted: {timeCreated}</p>
+      <p>Posted: {formatedDate}</p>
     </li>
   );
 }

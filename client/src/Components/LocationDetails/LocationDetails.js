@@ -3,22 +3,21 @@ import PropTypes from 'prop-types';
 import './LocationDetails.scss';
 
 function LocationDetails({ location }) {
-  const { address, phone, website, categories, rating, price, photos } = location;
-  console.log(rating);
-  const starArr = [...Array(Math.floor(rating)).keys()]; 
+  const { address, phone, categories, rating, price, photos } = location;
+  const starArr = [...Array(Math.floor(rating)).keys()];
 
   return (
-    <div className='location-details'>
-      <div>
-        <div>{starArr.map(el => <span class="fa fa-star"></span>)}</div>
+    <div className="location-details">
+      <div className="icons">
+        <div>{starArr.map(el => <span className="fa fa-star" key={el} />)}</div>
         <p>{price}</p>
       </div>
-      <p>{categories.map(el => <span>{el.title}</span>)}</p>
-      <div>
-        <div>{address.map(el => <div>{el} </div>)}</div>
+      <p>{categories.map(category => <span key={category}>{category.title}</span>)}</p>
+      <div className="contact">
+        <div>{address.map(line => <div key={line}>{address} </div>)}</div>
         <div>{phone}</div>
       </div>
-      <ul>{photos.map(photo => <li><img src={photo} /></li>)}</ul>
+      <ul>{photos.map((photo, i) => <li key={i}><img src={photo} alt="Restaurant food and ambience" /></li>)}</ul>
     </div>
   );
 }

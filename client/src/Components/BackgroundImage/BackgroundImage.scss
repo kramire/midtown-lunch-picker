@@ -1,0 +1,16 @@
+.stock-img {
+  height: 85vh;
+  background-size: 150vh;
+  opacity: .7;
+}
+
+.img-container {
+  width: 100%;
+  height: 35vh;
+  overflow: hidden;
+
+  .location-img {
+    width: 100%;
+    opacity: .5;
+  }
+}
