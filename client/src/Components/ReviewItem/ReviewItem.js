@@ -1,14 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import './ReviewItem.scss';
 
 function ReviewItem({ review }) {
   const { rating, text } = review;
   const timeCreated = review.time_created;
+  const starArr = [...Array(Math.floor(rating)).keys()]; 
 
   return (
-    <li>
-      <p>Rating: {rating}</p>
-      <p>Review: {text}</p>
+    <li className='review-item'>
+      <div>{starArr.map(el => <span class="fa fa-star"></span>)}</div>
+      <p>{text}</p>
       <p>Posted: {timeCreated}</p>
     </li>
   );

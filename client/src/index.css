@@ -1,0 +1,10 @@
+:root {
+  --primary-color: #e4bf6b;
+  --primary-bg-color: #fff1d238;
+  --primary-font: 'Lexend Deca', sans-serif;
+  --secondary-font: 'Source Sans Pro', sans-serif;
+}
+
+body {
+  margin: 0;
+}

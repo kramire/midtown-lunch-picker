@@ -1,17 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import './LocationDetails.scss';
 
 function LocationDetails({ location }) {
   const { address, phone, website, categories, rating, price, photos } = location;
+  console.log(rating);
+  const starArr = [...Array(Math.floor(rating)).keys()]; 
 
   return (
-    <div>
-      <p>Address: {address.map(el => <span>{el} </span>)}</p>
-      <p>Phone: {phone}</p>
-      <a href={website}>Website</a>
-      <p>Style: {categories.map(el => <span>{el.title} </span>)}</p>
-      <p>Rating: {rating}</p>
-      <p>Price: {price}</p>
+    <div className='location-details'>
+      <div>
+        <div>{starArr.map(el => <span class="fa fa-star"></span>)}</div>
+        <p>{price}</p>
+      </div>
+      <p>{categories.map(el => <span>{el.title}</span>)}</p>
+      <div>
+        <div>{address.map(el => <div>{el} </div>)}</div>
+        <div>{phone}</div>
+      </div>
       <ul>{photos.map(photo => <li><img src={photo} /></li>)}</ul>
     </div>
   );

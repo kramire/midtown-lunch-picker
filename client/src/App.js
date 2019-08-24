@@ -1,5 +1,5 @@
 import React from 'react';
-import './App.css';
+import './App.scss';
 import { RandomGenerator, Filters, LocationDetails, Reviews } from './Components';
 import { useSelector } from 'react-redux';
 
