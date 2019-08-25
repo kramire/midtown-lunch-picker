@@ -26,7 +26,7 @@ function RandomGenerator() {
       <button type="button" onClick={handleClick}>
         {
           location === null ? 'Feed Me!' :
-          isFetching === true ? '...' :
+          isFetching === true ? <div className="loader" /> :
           location
         }
       </button>
