@@ -1,16 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { StarRating } from '../../Components';
 import './ReviewItem.scss';
 
 function ReviewItem({ review }) {
   const { rating, text } = review;
   const postDate = new Date(review.time_created);
   const formatedDate = `${postDate.getMonth()}/${postDate.getDay()}/${postDate.getFullYear()}`;
-  const starArr = [...Array(Math.floor(rating)).keys()];
 
   return (
-    <li className="review-item">
-      <div>{starArr.map(el => <span className="fa fa-star" key={el} />)}</div>
+    <li test-id="review-item" className="review-item">
+      <StarRating rating={rating}/>
       <p>{text}</p>
       <p>Posted: {formatedDate}</p>
     </li>
@@ -28,7 +28,7 @@ ReviewItem.propTypes = {
 ReviewItem.defaultProps = {
   review: {
     rating: 0,
-    text: '',
+    text: 'Error loading review',
     time_created: '',
   },
 };

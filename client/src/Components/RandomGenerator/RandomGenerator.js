@@ -19,10 +19,17 @@ function RandomGenerator() {
   };
 
   const location = useSelector(state => state.selectedLocation.name);
+  const isFetching = useSelector(state => state.locationDetails.isRequesting);
 
   return (
     <div className="random-generator">
-      <button type="button" onClick={handleClick}>{location !== null ? location : 'Feed Me!'}</button>
+      <button type="button" onClick={handleClick}>
+        {
+          location === null ? 'Feed Me!' :
+          isFetching === true ? '...' :
+          location
+        }
+      </button>
       <BackgroundImage />
     </div>
   );

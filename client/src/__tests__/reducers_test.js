@@ -1,7 +1,7 @@
-import reducer from '../src/redux/reducers';
-import * as types from '../src/redux/actionTypes';
-import locationData from '../src/assests/locationDetails.json';
-import reviewData from '../src/assests/reviews.json';
+import reducer from '../redux/reducers';
+import * as types from '../redux/actionTypes';
+import locationData from '../assests/locationDetails.json';
+import reviewData from '../assests/reviews.json';
 
 describe('Reducers', () => {
   describe('Application UI', () => {

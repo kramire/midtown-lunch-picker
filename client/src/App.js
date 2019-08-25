@@ -8,7 +8,7 @@ function App() {
   const reviews = useSelector(state => state.reviews.data);
 
   return (
-    <div className="App">
+    <div test-id='app' className="App">
       <h1>MIDTOWN LUNCH PICKER</h1>
       <RandomGenerator />
       {location.address.length > 0 && <LocationDetails location={location} />}

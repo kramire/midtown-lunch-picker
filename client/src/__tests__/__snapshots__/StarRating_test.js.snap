@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`StarRating Component Testing Snapshot Test --> 4.5 rating --> should render 4 children 1`] = `
+<div
+  test-id="star-rating"
+>
+  <span
+    className="fa fa-star"
+    test-id="star-icon"
+  />
+  <span
+    className="fa fa-star"
+    test-id="star-icon"
+  />
+  <span
+    className="fa fa-star"
+    test-id="star-icon"
+  />
+  <span
+    className="fa fa-star"
+    test-id="star-icon"
+  />
+</div>
+`;
+
+exports[`StarRating Component Testing Snapshot Test --> no rating --> should render no children 1`] = `
+<div
+  test-id="star-rating"
+/>
+`;

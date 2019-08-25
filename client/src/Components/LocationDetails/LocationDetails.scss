@@ -6,7 +6,7 @@
   border-radius: 0px 0px 20px 20px;
   font-family: var(--secondary-font);
 
-  .icons, .contact {
+  .icons, .contact, .links {
     display: flex;
     align-items: center;
     margin: 10px 0;
@@ -17,6 +17,18 @@
 
     p {
       margin: 0;
+    }
+  }
+
+  .links {
+    justify-content: space-around;
+    margin: 20px;
+    
+    > * {
+      text-decoration: none;
+      color: black;
+      font-family: var(--secondary-font);
+      // font-weight: lighter;
     }
   }
 
