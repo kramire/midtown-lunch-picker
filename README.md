@@ -31,6 +31,8 @@ New York offers a wide range of options on where to eat out, order delivery, or 
 3. Install the necessary dependencies.
 Run `npm i` in both the `client` and `server` folders.
 
+4. In the client folder, create a `locations.json` file following the example provided as a guide. This is a dataset of restaurants and their yelp_id's that the app will used to randomly select a place. This  makes the app easy to customize. The yelp_id's can be obtained by using the Yelp API.
+
 
 ### To Start
 

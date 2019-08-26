@@ -8,9 +8,9 @@ import { setLocation, getLocationDetails, getReviews } from '../../redux/actions
 
 
 function RandomGenerator() {
-  const numOfLocations = locationData.length;
+  const numOfLocations = locationData.data.length;
   const randomIndex = Math.floor(Math.random() * numOfLocations);
-  const locationPick = locationData[randomIndex];
+  const locationPick = locationData.data[randomIndex];
   const locationID = locationPick.yelp_id;
 
   const dispatch = useDispatch();

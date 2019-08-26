@@ -1,0 +1,11 @@
+{
+  "data": [{
+      "yelp_id": "123",
+      "name": "My Restaurant"
+    },
+    {
+      "yelp_id": "456",
+      "name": "My Cafe"
+    }
+  ]
+}
