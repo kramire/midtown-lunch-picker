@@ -11,7 +11,7 @@ New York offers a wide range of options on where to eat out, order delivery, or 
 </p>
 
 <p align="center">
-    <img src="https://gph.is/g/ZWMqDv6" width="277px" height="550px" />
+    <img src="https://media.giphy.com/media/lnn8EYszR4ucSeR1vp/giphy.gif" width="277px" height="550px" />
 </p>
 
 
