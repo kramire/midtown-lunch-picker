@@ -4,7 +4,7 @@ import { StarRating } from '../../Components';
 import './LocationDetails.scss';
 
 function LocationDetails({ location }) {
-  const { address, phone, categories, website, rating, price, photos } = location;
+  const { address, phone, categories, rating, price, photos } = location;
 
   return (
     <div className="location-details">
@@ -18,10 +18,6 @@ function LocationDetails({ location }) {
         <div>{phone}</div>
       </div>
       <ul>{photos.map((photo, i) => <li key={i}><img src={photo} alt="Restaurant food and ambience" /></li>)}</ul>
-      {/* <div className="links">
-        <a href={website}>Yelp Page <span className="fa fa-external-link" /></a>
-        <div>See Reviews</div>
-      </div> */}
     </div>
   );
 }

@@ -1,9 +1,11 @@
 import React from 'react';
 import './RandomGenerator.scss';
 import { useDispatch, useSelector } from 'react-redux';
+import { useSpring, animated } from 'react-spring';
 import locationData from '../../assests/locations.json';
 import BackgroundImage from '../BackgroundImage';
 import { setLocation, getLocationDetails, getReviews } from '../../redux/actions';
+
 
 function RandomGenerator() {
   const numOfLocations = locationData.length;
@@ -21,15 +23,26 @@ function RandomGenerator() {
   const location = useSelector(state => state.selectedLocation.name);
   const isFetching = useSelector(state => state.locationDetails.isRequesting);
 
+  const { x } = useSpring({ from: { x: 0 }, x: isFetching ? 1 : 0, config: { duration: 1000 } });
+
+  const bounce = {
+    transform: x
+      .interpolate({
+        range: [0, 0.25, 0.35, 0.45, 0.55, 0.65, 0.75, 1],
+        output: [1, 0.97, 0.9, 1.1, 0.9, 1.1, 1.03, 1],
+      })
+      .interpolate(x => `scale(${x})`),
+  };
+
   return (
     <div className="random-generator">
-      <button type="button" onClick={handleClick}>
+      <animated.button type="button" onClick={handleClick} style={bounce}>
         {
           location === null ? 'Feed Me!' :
-          isFetching === true ? <div className="loader" /> :
+          isFetching === true ? '?' :
           location
         }
-      </button>
+      </animated.button>
       <BackgroundImage />
     </div>
   );

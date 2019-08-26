@@ -10,7 +10,7 @@ function ReviewItem({ review }) {
 
   return (
     <li test-id="review-item" className="review-item">
-      <StarRating rating={rating}/>
+      <StarRating rating={rating} />
       <p>{text}</p>
       <p>Posted: {formatedDate}</p>
     </li>
