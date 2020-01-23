@@ -2,10 +2,10 @@ import fetch from 'isomorphic-fetch';
 import thunk from 'redux-thunk';
 import nock from 'nock';
 import configureMockStore from 'redux-mock-store';
-import * as actions from '../redux/actions';
-import * as types from '../redux/actionTypes';
-import locationDetailsData from '../assests/locationDetails.json';
-import reviewsData from '../assests/reviews.json';
+import * as actions from '../../redux/actions';
+import * as types from '../../redux/actionTypes';
+import locationDetailsData from '../../assests/locationDetails.json';
+import reviewsData from '../../assests/reviews.json';
 
 const baseUrl = process.env.REACT_APP_SERVER;
 
