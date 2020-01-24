@@ -3,23 +3,21 @@ import './RandomGenerator.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSpring, animated } from 'react-spring';
 import locationData from '../../assests/locations.json';
-import BackgroundImage from '../BackgroundImage';
+import { BackgroundImage } from '../../Components';
 import { selectLocation } from '../../redux/actions';
+import { pickRandomLocation } from '../../assests/utils';
 
 
 function RandomGenerator() {
-  const numOfLocations = locationData.data.length;
-  const randomIndex = Math.floor(Math.random() * numOfLocations);
-  const locationPick = locationData.data[randomIndex];
-
   const dispatch = useDispatch();
-  const handleClick = () => dispatch(selectLocation(locationPick));
-
-  const location = useSelector(state => state.locations.selectedLocation.name);
+  const randomLocation = pickRandomLocation(locationData);
+  const handleClick = () => dispatch(selectLocation(randomLocation));
+  
+  const locationName = useSelector(state => state.locations.selectedLocation.name);
   const isFetching = useSelector(state => state.locationDetails.isRequesting);
+  const locationPhoto = useSelector(state => state.locationDetails.photos[0]);
 
   const { x } = useSpring({ from: { x: 0 }, x: isFetching ? 1 : 0, config: { duration: 1000 } });
-
   const bounce = {
     transform: x
       .interpolate({
@@ -33,12 +31,12 @@ function RandomGenerator() {
     <div className="random-generator">
       <animated.button type="button" onClick={handleClick} style={bounce}>
         {
-          location === null ? 'Feed Me!' :
+          locationName === null ? 'Feed Me!' :
           isFetching === true ? '?' :
-          location
+          locationName
         }
       </animated.button>
-      <BackgroundImage />
+      <BackgroundImage locationPhoto={locationPhoto} />
     </div>
   );
 }

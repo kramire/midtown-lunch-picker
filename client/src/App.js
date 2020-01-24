@@ -1,7 +1,8 @@
 import React from 'react';
 import './App.scss';
 import { useSelector } from 'react-redux';
-import { RandomGenerator, LocationDetails, Reviews } from './Components';
+import { LocationDetails, Reviews } from './Components';
+import { RandomGenerator } from './Containers';
 
 function App() {
   const location = useSelector(state => state.locationDetails);

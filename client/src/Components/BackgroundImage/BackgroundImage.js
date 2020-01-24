@@ -1,22 +1,29 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import './BackgroundImage.scss';
-import { useSelector } from 'react-redux';
 import stockImg from '../../assests/images/homescreen.jpg';
 
-function BackgroundImage() {
-  const locationImg = useSelector(state => state.locationDetails.photos[0]);
+function BackgroundImage({ locationPhoto }) {
+  const locationImg = (
+    <div className="img-container">
+      <img src={locationPhoto} className="location-img" alt="Restaurant food and ambience" />
+    </div>
+  );
+  const defaultImg = <img src={stockImg} className="stock-img" alt="Black bean salad" /> ;
 
   return (
     <>
-      {
-        locationImg === undefined ?
-          <img src={stockImg} className="stock-img" alt="Black bean salad" /> :
-          <div className="img-container">
-            <img src={locationImg} className="location-img" alt="Restaurant food and ambience" />
-          </div>
-      }
+      {locationPhoto === undefined ? defaultImg : locationImg}
     </>
   );
 }
+
+BackgroundImage.propTypes = {
+  locationPhoto: PropTypes.string,
+};
+
+BackgroundImage.defaultProps = {
+  locationPhoto: undefined,
+};
 
 export default BackgroundImage;
