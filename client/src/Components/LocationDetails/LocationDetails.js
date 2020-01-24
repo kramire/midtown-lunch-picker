@@ -12,12 +12,18 @@ function LocationDetails({ location }) {
         <StarRating rating={rating} />
         <p>{price}</p>
       </div>
-      <p>{categories.map(category => <span key={category}>{category.title}</span>)}</p>
-      <div className="contact">
-        <div>{address.map(line => <div key={line}>{line} </div>)}</div>
+      <div className="categories">
+        {categories.map(category => <span key={category.title}>{category.title}</span>)}
+      </div>
+      <div className="contact-info">
+        <div>
+          {address.map(line =><div key={line}>{line} </div>)}
+        </div>
         <div>{phone}</div>
       </div>
-      <ul>{photos.map((photo, i) => <li key={i}><img src={photo} alt="Restaurant food and ambience" /></li>)}</ul>
+      <ul className="review-list">
+        {photos.map((photo, i) => <li key={i}><img src={photo} alt="Restaurant food and ambience" /></li>)}
+      </ul>
     </div>
   );
 }
@@ -27,7 +33,10 @@ LocationDetails.propTypes = {
     address: PropTypes.arrayOf(PropTypes.string),
     phone: PropTypes.string,
     website: PropTypes.string,
-    categories: PropTypes.arrayOf(PropTypes.string),
+    categories: PropTypes.arrayOf(PropTypes.shape({
+      alias: PropTypes.string,
+      name: PropTypes.string,
+    })),
     rating: PropTypes.number,
     price: PropTypes.string,
     photos: PropTypes.arrayOf(PropTypes.string),

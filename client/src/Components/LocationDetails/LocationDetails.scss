@@ -6,7 +6,7 @@
   border-radius: 0px 0px 20px 20px;
   font-family: var(--secondary-font);
 
-  .icons, .contact, .links {
+  .icons, .contact-info, .links {
     display: flex;
     align-items: center;
     margin: 10px 0;
@@ -32,7 +32,7 @@
     }
   }
 
-  .contact {
+  .contact-info {
     justify-content: space-between;
     margin: 0 10px;
 
@@ -42,14 +42,14 @@
     font-size: 14px;
   }
 
-  p:first-of-type {
+  .categories {
     display: flex;
     justify-content: space-around;
     color: black;
     font-size: 20px;
   }
 
-  ul {
+  .review-list {
     padding: 0px;
     display: flex;
     justify-content: space-between;

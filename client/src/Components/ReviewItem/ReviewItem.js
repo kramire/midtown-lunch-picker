@@ -1,18 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { StarRating } from '../../Components';
+import { formatDate } from '../../assests/utils';
 import './ReviewItem.scss';
 
 function ReviewItem({ review }) {
   const { rating, text } = review;
-  const postDate = new Date(review.time_created);
-  const formatedDate = `${postDate.getMonth()}/${postDate.getDay()}/${postDate.getFullYear()}`;
+  const postDate = formatDate(review.time_created);
 
   return (
     <li test-id="review-item" className="review-item">
       <StarRating rating={rating} />
       <p>{text}</p>
-      <p>Posted: {formatedDate}</p>
+      <p>Posted: {postDate}</p>
     </li>
   );
 }
