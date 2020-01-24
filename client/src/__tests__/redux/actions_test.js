@@ -1,4 +1,3 @@
-import fetch from 'isomorphic-fetch';
 import thunk from 'redux-thunk';
 import nock from 'nock';
 import configureMockStore from 'redux-mock-store';
@@ -10,190 +9,194 @@ import reviewsData from '../../assests/reviews.json';
 const baseUrl = process.env.REACT_APP_SERVER;
 
 describe('Action Creators', () => {
-  afterEach(() => nock.cleanAll());
-
-  describe('Application UI', () => {
-    it('setLocation --> should create an action to set the location with a passed index', () => {
-      // Set Up
+  describe('Setting Current Location', () => {
+    it('setCurrentLocation --> should create an action to set the location with a passed index', () => {
+      // Arrange
       const arrayIndex = 1;
       const expectedAction = {
-        type: types.SET_LOCATION,
+        type: types.SET_CURRENT_LOCATION,
         data: arrayIndex,
       };
 
-      // Execute
-      const result = actions.setLocation(arrayIndex);
+      // Act
+      const result = actions.setCurrentLocation(arrayIndex);
 
-      // Assertion
-      expect(result).toEqual(expectedAction);
-    });
-
-    it('toggleFilters --> should create an action to toggle filters', () => {
-      // Set Up
-      const expectedAction = {
-        type: types.TOGGLE_FILTERS,
-      };
-
-      // Execute
-      const result = actions.toggleFilters();
-
-      // Assertion
-      expect(result).toEqual(expectedAction);
-    });
-
-    it('togglePickagain --> should create an action to toggle pickAgain', () => {
-      // Set Up
-      const expectedAction = {
-        type: types.TOGGLE_PICKAGAIN,
-      };
-
-      // Execute
-      const result = actions.togglePickagain();
-
-      // Assertion
+      // Assert
       expect(result).toEqual(expectedAction);
     });
   });
 
-  describe('Location Details', () => {
-    it('requestLocationDetails --> should create an action to set location isRequesting to true', () => {
-      // Set Up
+  describe('Application UI', () => {
+    it('toggleFilters --> should create an action to toggle filters', () => {
+      // Arrange
       const expectedAction = {
-        type: types.REQUEST_LOCATION_DETAILS,
+        type: types.TOGGLE_FILTERS,
       };
 
-      // Execute
-      const result = actions.requestLocationDetails();
-
-      // Assertion
-      expect(result).toEqual(expectedAction);
-    });
-
-    it('receiveLocationDetails --> should create an action to set location isRequesting to false', () => {
-      // Set Up
-      const expectedAction = {
-        type: types.RECEIVED_LOCATION_DETAILS,
-      };
-
-      // Execute
-      const result = actions.receivedLocationDetails();
-
-      // Assertion
-      expect(result).toEqual(expectedAction);
-    });
-
-    it('setLocationDetails --> should create an action to set the location details with passed object', () => {
-      // Set Up
-      const expectedAction = {
-        type: types.SET_LOCATION_DETAILS,
-        data: locationDetailsData,
-      };
-
-      // Execute
-      const result = actions.setLocationDetails(locationDetailsData);
+      // Act
+      const result = actions.toggleFilters();
 
       // Assert
       expect(result).toEqual(expectedAction);
     });
 
+    it('togglePickagain --> should create an action to toggle pickAgain', () => {
+      // Arrange
+      const expectedAction = {
+        type: types.TOGGLE_PICKAGAIN,
+      };
+
+      // Act
+      const result = actions.togglePickagain();
+
+      // Assert
+      expect(result).toEqual(expectedAction);
+    });
+  });
+
+  describe('Location Details', () => {
+    it('fetchLocationDetailsRequest --> should create an action to request location details from the api', () => {
+      // Arrange
+      const expectedAction = {
+        type: types.FETCH_LOCATION_DETAILS_REQUEST,
+      };
+
+      // Act
+      const result = actions.fetchLocationDetailsRequest();
+
+      // Assert
+      expect(result).toEqual(expectedAction);
+    });
+
+    it(`fetchLocationDetailsSuccess --> should create an action that fetching location details was a success,
+    and pass fetched location details data`, () => {
+      // Arrange
+      const expectedAction = {
+        type: types.FETCH_LOCATION_DETAILS_SUCCESS,
+        data: locationDetailsData,
+      };
+
+      // Act
+        const result = actions.fetchLocationDetailsSuccess(locationDetailsData);
+
+      // Assert
+      expect(result).toEqual(expectedAction);
+    });
+
+    it('fetchLocationDetailsError --> should create an action that fetching location details failed, and pass error', () => {
+      // Arrange
+      const testError = new Error();
+      const expectedAction = {
+        type: types.FETCH_LOCATION_DETAILS_FAILURE,
+        error: testError
+      };
+
+      // Act
+      const result = actions.fetchLocationDetailsFailure(testError);
+
+      // Assert
+      expect(result).toEqual(expectedAction);
+      });
+  });
+
+  describe('Reviews', () => {
+    it('fetchReviewsRequest --> should create an action to fetch reviews, no parameters', () => {
+      // Arrange
+      const expectedAction = {
+        type: types.FETCH_REVIEWS_REQUEST,
+      };
+
+      // Act
+      const result = actions.fetchReviewsRequest();
+
+      // Assert
+      expect(result).toEqual(expectedAction);
+    });
+
+    it(`fetchReviewsSuccess --> should create an action that fetching reviews was a success,
+    and pass fetched review data`, () => {
+      // Arrange
+      const expectedAction = {
+        type: types.FETCH_REVIEWS_SUCCESS,
+        data: reviewsData
+      };
+
+      // Act
+      const result = actions.fetchReviewsSuccess(reviewsData);
+
+      // Assert
+      expect(result).toEqual(expectedAction);
+    });
+
+    it('fetchReviewsFailure --> should create an action that fetching reviews failed, and pass error', () => {
+      // Arrange
+      const testError = new Error();
+      const expectedAction = {
+        type: types.FETCH_REVIEWS_FAILURE,
+        error: testError,
+      };
+
+      // Act
+      const result = actions.fetchReviewsFailure(testError);
+
+      // Assert
+      expect(result).toEqual(expectedAction);
+    });
+  });
+
+  describe('Thunks', () => {
+    let initialState, locationId, middlewares, mockStore, store;
+    
+    beforeEach(() => {
+      initialState = {};
+      locationId = '123';
+      middlewares = [thunk];
+      mockStore = configureMockStore(middlewares);
+      store = mockStore(initialState);
+    });
+
+    afterEach(() => nock.cleanAll());
+
     it('getLocationDetails --> should create an action to request location details from api', () => {
-      // Set Up
-      const initialState = { locationDetails: {} };
-      const locationId = '123';
-      const middlewares = [thunk];
-      const mockStore = configureMockStore(middlewares);
-      const store = mockStore(initialState);
+      // Arrange
       const responseData = locationDetailsData;
       const expectedActions = [
-        { type: types.REQUEST_LOCATION_DETAILS },
+        { type: types.FETCH_LOCATION_DETAILS_REQUEST },
         {
-          type: types.SET_LOCATION_DETAILS,
+          type: types.FETCH_LOCATION_DETAILS_SUCCESS,
           data: responseData,
         },
-        { type: types.RECEIVED_LOCATION_DETAILS },
       ];
-
       nock(baseUrl)
         .defaultReplyHeaders({ 'access-control-allow-origin': '*' })
         .get(`/locationDetails/${locationId}`)
         .reply(200, responseData);
 
-      // Execute & Assertion
+      // Act & Assert
       return store.dispatch(actions.getLocationDetails(locationId))
         .then(() => {
           expect(store.getActions()).toEqual(expectedActions);
         });
     });
-  });
-
-  describe('Reviews', () => {
-    it('requestReviews --> should create an action to set reviews isRequesting to true', () => {
-      // Set Up
-      const expectedAction = {
-        type: types.REQUEST_REVIEWS,
-      };
-
-      // Execute
-      const result = actions.requestReviews();
-
-      // Assertion
-      expect(result).toEqual(expectedAction);
-    });
-
-    it('receiveReviews --> should create an action to set reviews isRequesting to false', () => {
-      // Set Up
-      const expectedAction = {
-        type: types.RECEIVED_REVIEWS,
-      };
-
-      // Execute
-      const result = actions.receivedReviews();
-
-      // Assertion
-      expect(result).toEqual(expectedAction);
-    });
-
-    it('setReviews --> should create an action to set reviews with passed object', () => {
-      // Set Up
-      const expectedAction = {
-        type: types.SET_REVIEWS,
-        data: reviewsData,
-      };
-
-      // Execute
-      const result = actions.setReviews(reviewsData);
-
-      // Assertion
-      expect(result).toEqual(expectedAction);
-    });
 
     it('getReviews --> should create an action to request the review from the api', () => {
-      // Set Up
-      const initialState = { reviews: {} };
-      const locationId = '123';
+      // Arrange
       const responseData = reviewsData;
-      const middlewares = [thunk];
-      const mockStore = configureMockStore(middlewares);
-      const store = mockStore(initialState);
       const expectedActions = [
         {
-          type: types.REQUEST_REVIEWS,
+          type: types.FETCH_REVIEWS_REQUEST,
         },
         {
-          type: types.SET_REVIEWS,
+          type: types.FETCH_REVIEWS_SUCCESS,
           data: responseData,
         },
-        {
-          type: types.RECEIVED_REVIEWS,
-        },
       ];
-
       nock(baseUrl)
         .defaultReplyHeaders({ 'access-control-allow-origin': '*' })
         .get(`/reviews/${locationId}`)
         .reply(200, responseData);
 
-      // Execute & Assertion
+      // Act & Assert
       return store.dispatch(actions.getReviews(locationId))
         .then(() => {
           expect(store.getActions()).toEqual(expectedActions);

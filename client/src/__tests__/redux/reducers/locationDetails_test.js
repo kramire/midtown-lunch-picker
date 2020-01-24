@@ -3,13 +3,13 @@ import * as types from '../../../redux/actionTypes';
 import locationData from '../../../assests/locationDetails.json';
 
 describe('Reducers - Location Details', () => {
-  it('REQUEST_LOCATION_DETAILS --> should set the state\'s locationDetails.isRequesting to true', () => {
+  it('FETCH_LOCATION_DETAILS_REQUEST --> should set the state\'s locationDetails isRequesting to true', () => {
     // Arrange
     const initialState = {
       isRequesting: false,
     };
     const action = {
-      type: types.REQUEST_LOCATION_DETAILS,
+      type: types.FETCH_LOCATION_DETAILS_REQUEST,
     };
     const expectedState = {
       isRequesting: true,
@@ -23,36 +23,20 @@ describe('Reducers - Location Details', () => {
     expect(initialState).not.toEqual(expectedState);
   });
 
-  it('RECEIVED_LOCATION_DETAILS --> should set the state\'s locationDetails.isRequesting to false', () => {
+  it(`FETCH_LOCATION_DETAILS_SUCCESS --> should set the state's locationDetails isRequesting to false,
+  updates the lastUpdated time, and sets the location data`, () => {
     // Arrange
     const initialState = {
       isRequesting: true,
       lastUpdated: Date.now(),
     };
     const action = {
-      type: types.RECEIVED_LOCATION_DETAILS,
-    };
-    const expectedState = {
-      isRequesting: false,
-      lastUpdated: Date.now(),
-    };
-
-    // Act
-    const newState = reducer(initialState, action);
-
-    // Assert
-    expect(newState).toEqual(expectedState);
-    expect(initialState).not.toEqual(expectedState);
-  });
-
-  it('SET_LOCATION_DETAILS --> should set the properties for the location given the passed data', () => {
-    // Arrange
-    const initialState = {};
-    const action = {
-      type: types.SET_LOCATION_DETAILS,
+      type: types.FETCH_LOCATION_DETAILS_SUCCESS,
       data: locationData,
     };
     const expectedState = {
+      isRequesting: false,
+      lastUpdated: Date.now(),
       address: locationData.address,
       phone: locationData.phone,
       website: locationData.website,
@@ -60,6 +44,26 @@ describe('Reducers - Location Details', () => {
       rating: locationData.rating,
       price: locationData.price,
       photos: locationData.photos,
+    };
+
+    // Act
+    const newState = reducer(initialState, action);
+
+    // Assert
+    expect(newState).toEqual(expectedState);
+    expect(initialState).not.toEqual(expectedState);
+  });
+
+  it('FETCH_LOCATION_DETAILS_FAILURE --> should set the state\'s locationDetails isRequesting to false', () => {
+    // Arrange
+    const initialState = {
+      isRequesting: true,
+    };
+    const action = {
+      type: types.FETCH_LOCATION_DETAILS_FAILURE,
+    };
+    const expectedState = {
+      isRequesting: false,
     };
 
     // Act

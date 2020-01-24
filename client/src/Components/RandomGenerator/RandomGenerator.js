@@ -4,23 +4,18 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useSpring, animated } from 'react-spring';
 import locationData from '../../assests/locations.json';
 import BackgroundImage from '../BackgroundImage';
-import { setLocation, getLocationDetails, getReviews } from '../../redux/actions';
+import { selectLocation } from '../../redux/actions';
 
 
 function RandomGenerator() {
   const numOfLocations = locationData.data.length;
   const randomIndex = Math.floor(Math.random() * numOfLocations);
   const locationPick = locationData.data[randomIndex];
-  const locationID = locationPick.yelp_id;
 
   const dispatch = useDispatch();
-  const handleClick = () => {
-    dispatch(setLocation(locationPick));
-    dispatch(getLocationDetails(locationID));
-    dispatch(getReviews(locationID));
-  };
+  const handleClick = () => dispatch(selectLocation(locationPick));
 
-  const location = useSelector(state => state.selectedLocation.name);
+  const location = useSelector(state => state.locations.selectedLocation.name);
   const isFetching = useSelector(state => state.locationDetails.isRequesting);
 
   const { x } = useSpring({ from: { x: 0 }, x: isFetching ? 1 : 0, config: { duration: 1000 } });

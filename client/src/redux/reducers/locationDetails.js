@@ -14,20 +14,16 @@ const initialState = {
 
 function locationDetailsReducer(state = initialState, action) {
   switch(action.type) {
-    case types.REQUEST_LOCATION_DETAILS:
+    case types.FETCH_LOCATION_DETAILS_REQUEST:
       return {
         ...state,
         isRequesting: true
       }
-    case types.RECEIVED_LOCATION_DETAILS:
+    case types.FETCH_LOCATION_DETAILS_SUCCESS:
       return {
         ...state,
         isRequesting: false,
         lastUpdated: Date.now(),
-      }
-    case types.SET_LOCATION_DETAILS:
-      return {
-        ...state,
         address: action.data.address,
         phone: action.data.phone,
         website: action.data.website,
@@ -35,6 +31,11 @@ function locationDetailsReducer(state = initialState, action) {
         rating: action.data.rating,
         price: action.data.price,
         photos: action.data.photos,
+      }
+    case types.FETCH_LOCATION_DETAILS_FAILURE:
+      return {
+        ...state,
+        isRequesting: false,
       }
     default:
       return {

@@ -8,22 +8,23 @@ const initialState = {
 
 function reviewsReducer(state = initialState, action) {
   switch(action.type) {
-    case types.REQUEST_REVIEWS:
+    case types.FETCH_REVIEWS_REQUEST:
       return {
         ...state,
         isRequesting: true,
       };
-    case types.RECEIVED_REVIEWS:
+    case types.FETCH_REVIEWS_SUCCESS:
       return {
         ...state,
         isRequesting: false,
         lastUpdated: Date.now(),
-      }
-    case types.SET_REVIEWS:
+        data: action.data,
+      };
+    case types.FETCH_REVIEWS_FAILURE:
       return {
         ...state,
-        data: action.data,
-      }
+        isRequesting: false,
+      };
     default:
       return {
         ...state,

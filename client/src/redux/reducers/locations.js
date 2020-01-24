@@ -11,7 +11,7 @@ const initialState = {
 
 function locationsReducer(state = initialState, action) {
   switch (action.type) {
-    case types.SET_LOCATION:
+    case types.SET_CURRENT_LOCATION:
       return {
         ...state,
         selectedLocation: {
